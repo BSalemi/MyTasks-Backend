@@ -3,5 +3,9 @@ class User < ApplicationRecord
     validates(:email_address, :presence => true, :uniqueness => true)
     validates(:password, :presence => true)
 
-    has_many :tasks 
+    validates_confirmation_of :password, :message => "Passwords do not match"
+        
+    validates_presence_of :password_confirmation
+
+    has_many :tasks
 end
