@@ -18,6 +18,7 @@ class UsersController < ApplicationController
             }, except: [:created_at, :updated_at]
         else
             render json: {message: "An error occurred. Please check that all fields are entered correctly."}
+        end 
     end
 
 
