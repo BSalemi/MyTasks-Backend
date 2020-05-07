@@ -11,4 +11,10 @@ class TasksController < ApplicationController
 
         render json: task, except: [:created_at, :updated_at]
     end 
+
+    def show
+        tasks = Task.all 
+
+        render json: tasks, except: [:created_at, :updated_at]
+    end 
 end
