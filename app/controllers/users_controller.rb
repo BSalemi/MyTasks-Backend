@@ -21,6 +21,21 @@ class UsersController < ApplicationController
         end 
     end
 
+    def login
+        user = User.find_by(username: params[:username], password: [params[:password]])
+
+        if user 
+            render json: user, :include => {
+                tasks: {
+                    except: [:created_at, :updated_at]
+                }, except: [:created_at, :updated_at]
+            }
+        else 
+            render json: {message: "Incorrect Username or Password"}
+        end 
+
+    end 
+
 
     private 
 
