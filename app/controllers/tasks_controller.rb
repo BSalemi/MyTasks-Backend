@@ -19,6 +19,15 @@ class TasksController < ApplicationController
         task.completed = true 
 
         render json: id, except [:created_at, :updated_at]
+    end 
+
+    def undo
+        task = Task.find(params[:id])
+        id = task.id
+
+        task.completed = false 
+
+        render json: id, except [:created_at, :updated_at]
 
     end 
 
