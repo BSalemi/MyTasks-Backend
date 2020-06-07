@@ -12,9 +12,14 @@ class TasksController < ApplicationController
         render json: task, except: [:created_at, :updated_at]
     end 
 
-    # def show
-    #     tasks = Task.all 
+    def complete
+        task = Task.find(params[:id])
+        id = task.id 
 
-    #     render json: tasks, except: [:created_at, :updated_at]
-    # end 
+        task.completed = true 
+
+        render json: id, except [:created_at, :updated_at]
+
+    end 
+
 end
