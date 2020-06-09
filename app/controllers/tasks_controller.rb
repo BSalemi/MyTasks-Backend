@@ -1,3 +1,4 @@
+
 class TasksController < ApplicationController
 
     def index
@@ -12,22 +13,26 @@ class TasksController < ApplicationController
         render json: task, except: [:created_at, :updated_at]
     end 
 
+    def show
+        task = Task.find_by(id: params[:id])
+    end 
+
     def complete
         task = Task.find(params[:id])
         id = task.id 
-
         task.completed = true 
-
-        render json: id, except [:created_at, :updated_at]
+        task.save
+        # byebug
+        render json: task, except: [:created_at, :updated_at]
     end 
 
     def undo
         task = Task.find(params[:id])
         id = task.id
-
+        
         task.completed = false 
 
-        render json: id, except [:created_at, :updated_at]
+        render json: id, except: [:created_at, :updated_at]
 
     end 
 
