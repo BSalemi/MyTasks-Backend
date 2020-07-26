@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(email_address: params[:emailAddress], username: params[:username], password: params[:password], password_confirmation: params[:passwordConfirm])
+        user = User.new(email_address: params[:email_address], username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
 
         if user.valid?
             user.save
@@ -22,16 +22,17 @@ class UsersController < ApplicationController
     end
 
     def login
-        user = User.find_by(username: params[:username], password: [params[:password]])
-       
-        if user 
-            id = user.id
-            render json: id, except: [:created_at, :updated_at]
-        else 
-            render json: {message: "Incorrect Username or Password"}
-        end 
 
-    end 
+        @user = User.find_by(username: params[:username])
+
+        if @user && @user.authenticate(params[:password])
+            id = @user.id
+            render json: id, except: [:created_at, :updated_at]
+        else
+            render json: {message: "Incorrect Username or Password"}
+        end
+
+    end
 
 
     private 
