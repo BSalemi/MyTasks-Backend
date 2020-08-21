@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     end
 
     def create
-        task = Task.create(to_do: params[:to_do], user_id: params[:user_id])
+        task = Task.create(to_do: params[:task], user_id: params[:user_id])
 
         render json: task, except: [:created_at, :updated_at]
     end 
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
         
         task.completed = false 
 
-        render json: id, except: [:created_at, :updated_at]
+        render json: task, except: [:created_at, :updated_at]
 
     end 
 

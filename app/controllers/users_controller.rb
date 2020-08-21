@@ -7,11 +7,11 @@ class UsersController < ApplicationController
     end
 
     def create
-        user = User.new(email_address: params[:email_address], username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
+        @user = User.new(email_address: params[:email_address], username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
 
-        if user.valid?
-            user.save
-            render json: user, :include => {
+        if @user.valid?
+            @user.save
+            render json: @user, :include => {
                 tasks: {
                     except: [:created_at, :updated_at]
                 },
@@ -26,8 +26,12 @@ class UsersController < ApplicationController
         @user = User.find_by(username: params[:username])
 
         if @user && @user.authenticate(params[:password])
-            id = @user.id
-            render json: id, except: [:created_at, :updated_at]
+            # id = @user.id
+            render json: @user, :include => {
+                tasks: {
+                    except: [:created_at, :updated_at]
+                },
+            }, except: [:created_at, :updated_at]
         else
             render json: {message: "Incorrect Username or Password"}
         end

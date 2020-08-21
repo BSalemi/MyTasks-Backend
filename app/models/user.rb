@@ -5,7 +5,7 @@ class User < ApplicationRecord
     
     validates(:email_address, :presence => true, :uniqueness => true)
     
-    validates(:password, :presence => true,  :length => {:within => 8..16, :wrong_length => "Passwords must be between eight and sixteen characters long."})
+    validates(:password, :presence => true,  :length => {:within => 6..16, :wrong_length => "Passwords must be between six and sixteen characters long."})
     
     validates_presence_of :password_confirmation
 
