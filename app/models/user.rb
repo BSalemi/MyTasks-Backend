@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
     validates(:username, :presence => true, :uniqueness => true, :length => {:within => 6..12, :wrong_length => "Username must be between six and twelve characters long."} )
     
-    validates(:email_address, :presence => true, :uniqueness => true)
+    validates(:email_address, :presence => true, :uniqueness => true, :length => {:within => 8..30, :wrong_length => "Emails must be between eight and thirty characters long."})
     
     validates(:password, :presence => true,  :length => {:within => 6..16, :wrong_length => "Passwords must be between six and sixteen characters long."})
     
