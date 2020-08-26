@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     def create
         task = Task.create(to_do: params[:task], user_id: params[:user_id])
         if params[:dueDate].size === 10
-            task.due_date = params[:dueDate]
+            task.due_date = params[:dueDate].strftime('%B %e at %l:%M %p')
             task.save
         else 
             task.due_date = nil
@@ -35,11 +35,19 @@ class TasksController < ApplicationController
     def undo
         task = Task.find(params[:id])
         id = task.id
-        
-        task.completed = false 
+        task.completed = false
 
         render json: task, except: [:created_at, :updated_at]
 
     end 
 
+    def destroy
+        task = Task.find(params[:id])
+        user = task.user_id
+        task.destroy
+
+        tasks = Task.select{|task| task.user_id === user}
+
+        render json: tasks, except: [:created_at, :updated_at]
+    end
 end
