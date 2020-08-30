@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     def create
         task = Task.create(to_do: params[:task], user_id: params[:user_id])
         if params[:dueDate].size === 10
-            task.due_date = params[:dueDate].strftime('%B %e at %l:%M %p')
+            task.due_date = params[:dueDate]
             task.save
         else 
             task.due_date = nil
