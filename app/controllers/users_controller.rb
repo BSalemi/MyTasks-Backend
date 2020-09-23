@@ -18,8 +18,6 @@ class UsersController < ApplicationController
             }, except: [:created_at, :updated_at]
         else
             render json: { errors: @user.errors }, status: :unprocessable_entity
-            # render json: @user.errors, status: :unprocessable_entity
-            # {message: "An error occurred. Please check that all fields are entered correctly."}
         end
     end
 
